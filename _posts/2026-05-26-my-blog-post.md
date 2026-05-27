@@ -8,8 +8,8 @@ by Sam Francis
 # __Introduction__
 
 There are two important parts to this topic:
-Having a 3d terrain generator (in this case we are using a marching cube generator)
-A way to deform/ modify the existing mesh
+1. Having a 3D terrain generator (in this case we are using a marching cube generator)
+2. A way to deform/ modify the existing mesh
 
 As this topic is fairly expansive, we will be focusing on the deformation rather than the terrain generation, however I will still go over my implementation briefly. The idea for the deformation would (ideally) work for any 3D terrain generator, that being one that uses three inputs to generate terrain, unlike heightmaps (which only use two inputs). That being said, the concepts from this could be reworked to fit with other dimensions.
 
@@ -26,7 +26,7 @@ However, it shows us the basic flow of how the terrain generator works:
 3. Iterate through a x, y and z for loop.
 4. Sample 3d noise using a vector3 of the x, y, z positions -> this is maybe the most important step as it provides the density of a given point
 5. Feed this position into other functions and look up tables to retrieve data such as corner positions.
-6. This will also look at a table of possible shapes for the voxel to be, meaning the voxel “cubes” look smoother than a game like Minecrafts, deliberately blocky, terrain.
+6. This will also look at a table of possible shapes for the voxel to be, meaning the voxel “cubes” look smoother than a game like Minecraft's deliberately blocky, terrain.
 7. Store all of this data in the created arrays and build the mesh by passing the relevant arrays into the right spots. For example, I used an array mesh 3d in my implementation as I was able to pass in all of the values without much thought (and it helped with scalability) 
 
 ![TerrainCubes](/assets/godotPro3_01.gif)
@@ -152,7 +152,7 @@ func init_grid():
 				deform_dict[center] = deform_val #local
 				ChunkManager.global_deform_dict[chunk_pos] = deform_val #global on chunk manager
 ```
-In this function (that is called once at the start of the scene) we go through our for loop that’s the same size as our terrain’s size, and set the dictionary’s values to their default ones. Here we are also setting a certain amount of them to 1 (or fill_amount) to turn them into the ground, however for the sake of deformation, this can be skipped.
+In this function (that is called once at the start of the scene) we go through our for-loop that’s the same size as our terrain’s size, and set the dictionary’s values to their default ones. Here we are also setting a certain amount of them to 1 (or fill_amount) to turn them into the ground, however for the sake of deformation, this can be skipped.
 
 `var cube_values: Array[float] = get_cube_value(noise, cube_vertices, local_center, origin)`
 
@@ -178,9 +178,9 @@ Inside this function we are converting each cube vertex (the corners) to a globa
 
 And that is it. Mostly. The rest of this script is wholly dependent on your intentions and can be changed however you see fit. Going back over everything, once you have a way to generate 3D terrain, you then want to:
 
-Have a way to communicate to the terrain script (we use a raycast on a player object)
-Have a ‘terraform’ function that controls how the terrain will be modified (i.e. brush size) and updates the changes to a dictionary or other applicable variable
-Sample the dictionary before creating the mesh/ adding the vertices to see if terrain should be added or removed.
+1. Have a way to communicate to the terrain script (we use a raycast on a player object)
+2. Have a ‘terraform’ function that controls how the terrain will be modified (i.e. brush size) and updates the changes to a dictionary or other applicable variable
+3. Sample the dictionary before creating the mesh/ adding the vertices to see if terrain should be added or removed.
 
 In terms of simple implementation, this will get you most of the way there, however it is important to keep in mind other aspects that may cause problems.
 
