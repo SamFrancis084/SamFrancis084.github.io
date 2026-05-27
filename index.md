@@ -1,5 +1,3 @@
-Here you can say lots of fun things about your site.
+Welcome to my blog!
 
-Maybe say a some things about yourself.
-
-Or maybe what you plan to blog about.
+I'm Sam (sometimes Flearoy), a game developer and musician. This page is definitely a work in progress, but it could be kinda cool if it works.
